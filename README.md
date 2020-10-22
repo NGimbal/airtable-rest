@@ -4,7 +4,7 @@ Minimal Rest API built with Flask and airtable-python-wrapper for deployment on 
 
 To authenticate add config variable 'AIR_KEY' = 'your airtable api key' thru your Heroku dashboard.
 
-To deploy, first create Heroku project then add a configuration variable named AIR_KEY, with the value being your Airtable API key. Next clone the repository, navigate to it and run:
+Clone the repository, navigate to it and run:
     
     python3 -m venv venv/
     source venv/bin/activate
