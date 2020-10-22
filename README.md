@@ -6,14 +6,14 @@ To authenticate add config variable 'AIR_KEY' = <your airtable api key> thru you
 
 To deploy, first create Heroku project then add a configuration variable named AIR_KEY, with the value being your Airtable API key. Next clone the repository, navigate to it and run:
     
-    # python3 -m venv venv/
-    # source venv/bin/activate
+    python3 -m venv venv/
+    source venv/bin/activate
     
-    # pipenv install
+    pipenv install
     
 Create a .env file and add AIR_KEY=YOUR AIRTABLE KEY to the .env file. Next run:
     
-    # heroku local
+    heroku local
 
 ## Built on top of
 
