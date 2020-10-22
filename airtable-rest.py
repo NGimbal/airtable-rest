@@ -5,23 +5,28 @@ import os
 import sys
 from airtable import Airtable
 
-@app.route('/getmsg/', methods=['GET'])
-def respond():
+# http://localhost:5000/gettable/?table=Projects
+@app.route('/gettable/', methods=['GET'])
+def get_table():
   # Retrieve the name from url parameter
-  name = request.args.get("name", None)
+  table = request.args.get("table", None)
 
   # For debugging
-  print(f"got name {name}")
+  print(f"got name {table}")
 
   response = {}
 
   # Check if user sent a name at all
-  if not name:
-    response["ERROR"] = "no name found, please send a name"
-  elif str(name).isdigit():
-    response["ERROR"] = "name can't be numeric."
+  if not table:
+    response["ERROR"] = "no table found, please send a name"
+  elif str(table).isdigit():
+    response["ERROR"] = "table can't be numeric."
   else:
-    response["MESSAGE"] = f"Welcome {name} to our awesome platform!!"
+    base_key = 'appWi0DmmJUsA3mHD'
+    # table_name = 'Projects'
+    airtable = Airtable(base_key, table, api_key=os.environ['AIR_KEY'])
+    records = airtable.get_all(view='Has Logo', maxRecords=10)
+    response["MESSAGE"] = records
 
   return jsonify(response)
 
@@ -43,18 +48,18 @@ def post_something():
 # A welcome message to test our server
 @app.route('/')
 def index():
-  base_key = 'appWi0DmmJUsA3mHD'
-  table_name = 'Projects'
+  # base_key = 'appWi0DmmJUsA3mHD'
+  # table_name = 'Projects'
 
-  # print(os.environ.get('AIR_KEY')) 
-  # sys.stdout.flush()
+  # # print(os.environ.get('AIR_KEY')) 
+  # # sys.stdout.flush()
 
-  airtable = Airtable(base_key, table_name, api_key=os.environ['AIR_KEY'])
+  # airtable = Airtable(base_key, table_name, api_key=os.environ['AIR_KEY'])
 
-  records = airtable.get_all(view='Has Logo', maxRecords=10)
+  # records = airtable.get_all(view='Has Logo', maxRecords=10)
 
   # return airtable.get_all()
-  return jsonify(records)
+  return '<h1> Hi! </h1>'
 
 if __name__ == '__main__':
   # Threaded option to enable multiple instances for multiple user access support
